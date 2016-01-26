@@ -9,6 +9,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="clickSaveData"
         android:text="Save Data"
         android:id="@+id/button3"
         android:layout_alignParentBottom="true" />
@@ -55,8 +56,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/editText"
+                    android:textColorHint="@color/text"
                     android:layout_weight="2"
-                    android:hint="User :"
+                    android:hint="Full name"
                     android:textColor="@color/text"
                     android:inputType="text" />
             </LinearLayout>
@@ -79,7 +81,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/editText2"
-                    android:layout_weight="2" />
+                    android:layout_weight="2"
+                    android:inputType="text"
+                    android:hint="password"
+                    android:textColor="@color/text" />
             </LinearLayout>
 
             <LinearLayout
@@ -100,7 +105,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/editText3"
-                    android:layout_weight="2" />
+                    android:layout_weight="2"
+                    android:inputType="text"
+                    android:hint="email"
+                    android:textColor="@color/text" />
             </LinearLayout>
 
             <LinearLayout
@@ -121,7 +129,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/editText4"
-                    android:layout_weight="2" />
+                    android:layout_weight="2"
+                    android:inputType="text"
+                    android:hint="tel"
+                    android:textColor="@color/text" />
             </LinearLayout>
 
             <LinearLayout
@@ -142,7 +153,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/editText5"
-                    android:layout_weight="2" />
+                    android:layout_weight="2"
+                    android:inputType="text"
+                    android:hint="van.location"
+                    android:textColor="@color/text" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

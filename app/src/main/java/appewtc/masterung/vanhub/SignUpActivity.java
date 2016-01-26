@@ -1,14 +1,40 @@
 package appewtc.masterung.vanhub;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.EditText;
 
 public class SignUpActivity extends AppCompatActivity {
+
+    //Explicit
+    private EditText userEditText, passwordEditText, emailEditText,
+            phoneEditText, locationEditText;
+    private String userString, passwordString, emailString,
+            phoneString, locationString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        //Bind Widget
+        bindWidget();
+
     }   // Main Method
+
+    private void bindWidget() {
+
+        userEditText = (EditText) findViewById(R.id.editText);
+        passwordEditText = (EditText) findViewById(R.id.editText2);
+        emailEditText = (EditText) findViewById(R.id.editText3);
+        phoneEditText = (EditText) findViewById(R.id.editText4);
+        locationEditText = (EditText) findViewById(R.id.editText5);
+
+    }   // bindWidget
+
+    public void clickSaveData(View view) {
+
+    }   // clickSaveData
 
 }   // Main Class
