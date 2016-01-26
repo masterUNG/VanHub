@@ -35,6 +35,27 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void clickSaveData(View view) {
 
+        userString = userEditText.getText().toString().trim();
+        passwordString = passwordEditText.getText().toString().trim();
+        emailString = emailEditText.getText().toString().trim();
+        phoneString = phoneEditText.getText().toString().trim();
+        locationString = locationEditText.getText().toString().trim();
+
+        //Check Space
+        if (userString.equals("") ||
+                passwordString.equals("") ||
+                emailString.equals("") ||
+                phoneString.equals("") ||
+                locationString.equals("")) {
+
+            MyAlertDialog objMyAlertDialog = new MyAlertDialog();
+            objMyAlertDialog.myDialog(SignUpActivity.this, R.drawable.danger,
+                    "Have Space", "Please Fill All Blank");
+
+        } else {
+
+        } // if
+
     }   // clickSaveData
 
 }   // Main Class
