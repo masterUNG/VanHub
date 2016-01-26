@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">Van Hub</string>
 
-    <!--This is Master-->
-    <string name="regig">ลงทะเบียน</string>
+    <!--This is Min-->
+    <string name="regis">ลงทะเบียน</string>
+    <string name="user">ชื่อ</string>
+    <string name="pass">รหัสผ่าน</string>
+    <string name="email">E-Mail</string>
+    <string name="tel">เบอร์โทร</string>
+    <string name="local">สถานที่ตั้ง</string>
 
 
 </resources>
