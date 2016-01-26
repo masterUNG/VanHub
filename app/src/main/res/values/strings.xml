@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Van Hub</string>
+
+    <!--This is Master-->
+    <string name="regig">ลงทะเบียน</string>
+
+
 </resources>
