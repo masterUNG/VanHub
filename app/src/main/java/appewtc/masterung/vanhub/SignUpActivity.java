@@ -3,6 +3,7 @@ package appewtc.masterung.vanhub;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -17,8 +18,9 @@ public class SignUpActivity extends AppCompatActivity {
     private Spinner stopSpinner, timeStartSpinner, timeEndSpinner;
 
     private String userString, passwordString, emailString,
-            phoneString, locationString, nameString,
-            priceString, newsString;
+            phoneString, nameString,
+            priceString, newsString,
+            stopString, timeStartString, timeEndString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +28,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         //Bind Widget
-         bindWidget();
+        bindWidget();
 
         //Create Spinner
         createSpinner();
@@ -36,22 +38,58 @@ public class SignUpActivity extends AppCompatActivity {
     private void createSpinner() {
 
         //Spinner of Stop Province
-        String[] stopProvinceStrings = getResources().getStringArray(R.array.stop);
+        final String[] stopProvinceStrings = getResources().getStringArray(R.array.stop);
         ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, stopProvinceStrings);
         stopSpinner.setAdapter(stringArrayAdapter);
 
+        stopSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                stopString = stopProvinceStrings[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                stopString = stopProvinceStrings[0];
+            }
+        });
+
         //Spinner of Time Start
-        String[] timeStartStrings = getResources().getStringArray(R.array.time_start);
+        final String[] timeStartStrings = getResources().getStringArray(R.array.time_start);
         ArrayAdapter<String> timeStartArrayAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, timeStartStrings);
         timeStartSpinner.setAdapter(timeStartArrayAdapter);
 
+        timeStartSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                timeStartString = timeStartStrings[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                timeStartString = timeStartStrings[0];
+            }
+        });
+
         //Spinner of Time End
-        String[] timeEndStrings = getResources().getStringArray(R.array.time_stop);
+        final String[] timeEndStrings = getResources().getStringArray(R.array.time_stop);
         ArrayAdapter<String> timeEndArrayAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, timeEndStrings);
         timeEndSpinner.setAdapter(timeEndArrayAdapter);
+
+        timeEndSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                timeEndString = timeEndStrings[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                timeEndString = timeEndStrings[0];
+            }
+        });
 
     }   // createSpinner
 
