@@ -1,5 +1,7 @@
 package appewtc.masterung.vanhub;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -134,8 +136,48 @@ public class SignUpActivity extends AppCompatActivity {
 
         } else {
 
+            //No Space
+            confirmData();
+
         } // if
 
     }   // clickSaveData
+
+    private void confirmData() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setIcon(R.drawable.icon_myaccount);
+        builder.setTitle("โปรดตรวจข้อมูล");
+        builder.setMessage(getResources().getString(R.string.user) + newsString + "\n" +
+        "User = " + userString + "\n" +
+        getResources().getString(R.string.pass) + passwordString + "\n" +
+        getResources().getString(R.string.email) + emailString + "\n" +
+        getResources().getString(R.string.tel) + phoneString + "\n" +
+        getResources().getString(R.string.stop) + stopString + "\n" +
+        getResources().getString(R.string.price) + priceString + "\n" +
+        getResources().getString(R.string.timeStart) + timeEndString + "\n" +
+        getResources().getString(R.string.timeEnd) + timeEndString + "\n" +
+        getResources().getString(R.string.specialnews) + newsString);
+        builder.setCancelable(false);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                updateToMySQL();
+                dialogInterface.dismiss();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
+
+    }   // confirmData
+
+    private void updateToMySQL() {
+
+    }   // updateToMySQL
 
 }   // Main Class
