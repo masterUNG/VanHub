@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -35,6 +36,8 @@ public class SignUpActivity extends AppCompatActivity {
             priceString, newsString,
             stopString, timeStartString, timeEndString;
 
+    private TextView latTextView, lngTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +49,14 @@ public class SignUpActivity extends AppCompatActivity {
         //Create Spinner
         createSpinner();
 
+        //Open Service Get Location
+        openServiceGetLocation();
+
     }   // Main Method
+
+    private void openServiceGetLocation() {
+
+    }   //openServiceGetLocation
 
     private void createSpinner() {
 
@@ -118,7 +128,8 @@ public class SignUpActivity extends AppCompatActivity {
         stopSpinner = (Spinner) findViewById(R.id.spinner);
         timeStartSpinner = (Spinner) findViewById(R.id.spinner2);
         timeEndSpinner = (Spinner) findViewById(R.id.spinner3);
-
+        latTextView = (TextView) findViewById(R.id.textView14);
+        lngTextView = (TextView) findViewById(R.id.textView16);
 
     }   // bindWidget
 
