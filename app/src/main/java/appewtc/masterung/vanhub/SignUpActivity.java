@@ -19,7 +19,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         //Bind Widget
-        bindWidget();
+       // bindWidget();
 
     }   // Main Method
 
@@ -29,7 +29,7 @@ public class SignUpActivity extends AppCompatActivity {
         passwordEditText = (EditText) findViewById(R.id.editText2);
         emailEditText = (EditText) findViewById(R.id.editText3);
         phoneEditText = (EditText) findViewById(R.id.editText4);
-        locationEditText = (EditText) findViewById(R.id.editText5);
+
         nameEditText = (EditText) findViewById(R.id.editText8);
 
     }   // bindWidget
