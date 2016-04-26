@@ -2,6 +2,7 @@ package appewtc.masterung.vanhub;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -53,6 +54,12 @@ public class SignUpActivity extends AppCompatActivity {
         openServiceGetLocation();
 
     }   // Main Method
+
+    public void clickMyMap(View view) {
+        startActivity(new Intent(SignUpActivity.this, MyMaps.class));
+    }
+
+
 
     private void openServiceGetLocation() {
 

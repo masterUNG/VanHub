@@ -16,6 +16,7 @@
     <string name="specialnews">ข่าวสาร </string>
     <string name="lat">ละติจูด</string>
     <string name="lng">ลองติจูด</string>
+    <string name="title_activity_my_maps">Map</string>
 
 
 </resources>
