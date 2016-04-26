@@ -17,6 +17,8 @@
     <string name="lat">ละติจูด</string>
     <string name="lng">ลองติจูด</string>
     <string name="title_activity_my_maps">Map</string>
+    <string name="head_map">โปรดระบุตำแหน่ง</string>
+    <string name="save_location">บันทึกตำแหน่ง</string>
 
 
 </resources>
