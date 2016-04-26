@@ -1,8 +1,13 @@
 package appewtc.masterung.vanhub;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -41,6 +46,12 @@ public class SignUpActivity extends AppCompatActivity {
     private TextView latTextView, lngTextView;
     private double latADouble = 0, lngADouble;
 
+    private LocationManager locationManager;
+    private Criteria criteria;
+    private boolean gpsABoolean, networkABoolean;
+    private double userLatADouble, userLngADouble;
+    private String latString, lngString;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,10 +68,87 @@ public class SignUpActivity extends AppCompatActivity {
 
     }   // Main Method
 
+    public void clickByGPS(View view) {
+
+        latTextView.setText(Double.toString(userLatADouble));
+        lngTextView.setText(Double.toString(userLngADouble));
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        locationManager.removeUpdates(locationListener);
+
+    }
+
+    public Location myFindLocation(String strProvider, String strError) {
+
+        Location location = null;
+
+        if (locationManager.isProviderEnabled(strProvider)) {
+
+            locationManager.requestLocationUpdates(strProvider, 1000, 10, locationListener);
+            location = locationManager.getLastKnownLocation(strProvider);
+
+        } else {
+            Log.d("vanhub", "Cannot find Location ==> " + strError);
+        }
+
+        return location;
+    }
+
+
+    public LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+
+            userLatADouble = location.getLatitude();
+            userLngADouble = location.getLongitude();
+
+        }   // onLocationChange
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+
+        }
+    };
+
     @Override
     protected void onResume() {
         super.onResume();
 
+        //for Location
+        Location networkLocation = myFindLocation(LocationManager.NETWORK_PROVIDER,
+                "Cannot Connected Internet");
+        if (networkLocation != null) {
+
+            userLatADouble = networkLocation.getLatitude();
+            userLngADouble = networkLocation.getLongitude();
+
+        }
+
+        Location gpsLocation = myFindLocation(LocationManager.GPS_PROVIDER, "No Card GPS");
+        if (gpsLocation != null) {
+            userLatADouble = gpsLocation.getLatitude();
+            userLngADouble = gpsLocation.getLongitude();
+        }
+
+        Log.d("vanhub1", "Lat ==> " + userLatADouble);
+        Log.d("vanhub1", "Lng ==> " + userLngADouble);
+
+        // for Map
         Log.d("26April", "onResume ทำงาน");
 
         latADouble = getIntent().getDoubleExtra("Lat", 0);
@@ -74,7 +162,7 @@ public class SignUpActivity extends AppCompatActivity {
             lngTextView.setText(Double.toString(lngADouble));
         }
 
-    }
+    }   // onResume
 
 
 
@@ -85,6 +173,12 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     private void openServiceGetLocation() {
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        criteria.setAltitudeRequired(false);
+        criteria.setBearingRequired(false);
 
     }   //openServiceGetLocation
 
@@ -186,16 +280,21 @@ public class SignUpActivity extends AppCompatActivity {
             objMyAlertDialog.myDialog(SignUpActivity.this, R.drawable.danger,
                     "Have Space", "Please Fill All Blank");
 
+        } else if (latADouble == 0) {
+            MyAlertDialog myAlertDialog = new MyAlertDialog();
+            myAlertDialog.myDialog(this, R.drawable.icon_myaccount, "ยังไม่ระบุตำแหน่ง",
+                    "โปรดระบุตำแหน่ง");
         } else {
-
             //No Space
             confirmData();
-
-        } // if
+        }
 
     }   // clickSaveData
 
     private void confirmData() {
+
+        latString = latTextView.getText().toString();
+        lngString = lngTextView.getText().toString();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setIcon(R.drawable.icon_myaccount);
@@ -209,7 +308,9 @@ public class SignUpActivity extends AppCompatActivity {
         getResources().getString(R.string.price) + priceString + "\n" +
         getResources().getString(R.string.timeStart) + timeEndString + "\n" +
         getResources().getString(R.string.timeEnd) + timeEndString + "\n" +
-        getResources().getString(R.string.specialnews) + newsString);
+        getResources().getString(R.string.specialnews) + newsString + "\n" +
+        getResources().getString(R.string.lat) + latString + "\n" +
+        getResources().getString(R.string.lng) + lngString);
         builder.setCancelable(false);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -244,8 +345,8 @@ public class SignUpActivity extends AppCompatActivity {
             nameValuePairs.add(new BasicNameValuePair("Password", passwordString));
             nameValuePairs.add(new BasicNameValuePair("Email", emailString));
             nameValuePairs.add(new BasicNameValuePair("Phone", phoneString));
-            nameValuePairs.add(new BasicNameValuePair("Lat", "123"));
-            nameValuePairs.add(new BasicNameValuePair("Lng", "456"));
+            nameValuePairs.add(new BasicNameValuePair("Lat", latString));
+            nameValuePairs.add(new BasicNameValuePair("Lng", lngString));
             nameValuePairs.add(new BasicNameValuePair("Stop", stopString));
             nameValuePairs.add(new BasicNameValuePair("Price", priceString));
             nameValuePairs.add(new BasicNameValuePair("timeStart", timeStartString));
