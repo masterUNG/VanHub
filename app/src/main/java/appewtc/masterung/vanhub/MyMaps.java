@@ -8,6 +8,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MyMaps extends FragmentActivity implements OnMapReadyCallback {
 
@@ -30,6 +31,17 @@ public class MyMaps extends FragmentActivity implements OnMapReadyCallback {
         //กำหนดจุดเริ่มต้นที่ อนุสาวรี
         LatLng latLng = new LatLng(13.76479216, 100.53831339);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17));
+
+        //Create Marker When Click onMap
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+
+                //Show Marker
+                mMap.addMarker(new MarkerOptions().position(latLng));
+
+            }   // onMapClick
+        });
 
 
     }   // onMapReady
