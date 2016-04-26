@@ -17,7 +17,8 @@
         android:layout_height="wrap_content"
         android:text="@string/save_location"
         android:id="@+id/button7"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:onClick="clickSaveLocation" />
 
     <LinearLayout
         android:orientation="vertical"

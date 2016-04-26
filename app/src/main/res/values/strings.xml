@@ -19,6 +19,7 @@
     <string name="title_activity_my_maps">Map</string>
     <string name="head_map">โปรดระบุตำแหน่ง</string>
     <string name="save_location">บันทึกตำแหน่ง</string>
+    <string name="unknow">ยังไม่ได้กำหนด</string>
 
 
 </resources>

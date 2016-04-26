@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -38,6 +39,7 @@ public class SignUpActivity extends AppCompatActivity {
             stopString, timeStartString, timeEndString;
 
     private TextView latTextView, lngTextView;
+    private double latADouble = 0, lngADouble;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,27 @@ public class SignUpActivity extends AppCompatActivity {
         openServiceGetLocation();
 
     }   // Main Method
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Log.d("26April", "onResume ทำงาน");
+
+        latADouble = getIntent().getDoubleExtra("Lat", 0);
+        lngADouble = getIntent().getDoubleExtra("Lng", 0);
+
+        if (latADouble == 0) {
+            latTextView.setText(getResources().getString(R.string.unknow));
+            lngTextView.setText(getResources().getString(R.string.unknow));
+        } else {
+            latTextView.setText(Double.toString(latADouble));
+            lngTextView.setText(Double.toString(lngADouble));
+        }
+
+    }
+
+
 
     public void clickMyMap(View view) {
         startActivity(new Intent(SignUpActivity.this, MyMaps.class));

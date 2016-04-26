@@ -1,7 +1,9 @@
 package appewtc.masterung.vanhub;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -13,6 +15,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MyMaps extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private double latADouble = 0, lngADouble;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,22 @@ public class MyMaps extends FragmentActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }   // Main Method
+
+    public void clickSaveLocation(View view) {
+
+        if (latADouble ==0) {
+            MyAlertDialog myAlertDialog = new MyAlertDialog();
+            myAlertDialog.myDialog(this, R.drawable.icon_myaccount, "ยังไม่เลือกพิกัด",
+                    "โปรดเลือกพิกัด คะ");
+        } else {
+            Intent intent = new Intent(MyMaps.this, SignUpActivity.class);
+            intent.putExtra("Lat", latADouble);
+            intent.putExtra("Lng", lngADouble);
+            startActivity(intent);
+            finish();
+        }
+
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -37,8 +56,16 @@ public class MyMaps extends FragmentActivity implements OnMapReadyCallback {
             @Override
             public void onMapClick(LatLng latLng) {
 
+                //Clear All Marker
+                mMap.clear();
+
                 //Show Marker
                 mMap.addMarker(new MarkerOptions().position(latLng));
+
+                //Get Lat, Lng
+                latADouble = latLng.latitude;
+                lngADouble = latLng.longitude;
+
 
             }   // onMapClick
         });
