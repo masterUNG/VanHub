@@ -59,10 +59,42 @@ public class MainActivity extends AppCompatActivity {
                     "Please Fill All Blank");
         } else {
 
+            checkSearch(strSearch);
+
         }
 
 
     }   // clickGo
+
+    private void checkSearch(String strSearch) {
+
+        Log.d("30April", "strSearch ==> " + strSearch);
+
+        try {
+
+            SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                    MODE_PRIVATE, null);
+            Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE WHERE Stop = " + "'" + strSearch + "'", null);
+            cursor.moveToFirst();
+
+            String myChoose = cursor.getString(8);
+            Log.d("30April", "Search ==> " + myChoose);
+
+            Intent intent = new Intent(MainActivity.this, VinActivity.class);
+            intent.putExtra("Province", myChoose);
+            startActivity(intent);
+
+
+        } catch (Exception e) {
+
+            Log.d("30April", "Errror Search ==> " + e.toString());
+
+            MyAlertDialog myAlertDialog = new MyAlertDialog();
+            myAlertDialog.myDialog(this, R.drawable.icon_myaccount, "ไม่มี จังหวัดปลายทาง",
+                    "ไม่มี วินไป " + strSearch + " ใน ฐานข้อมูลของเรา");
+        }
+
+    }   // checkSearch
 
     private void createListProvince() {
 
@@ -126,6 +158,11 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 Log.d("30April", "You Choose ==>> " + myListProvinceStrings[i]);
+
+                Intent intent = new Intent(MainActivity.this, VinActivity.class);
+                intent.putExtra("Province", myListProvinceStrings[i]);
+                startActivity(intent);
+
 
             } // onItemClick
         });

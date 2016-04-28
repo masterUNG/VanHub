@@ -37,7 +37,8 @@
         <activity
             android:name=".MyMaps"
             android:label="@string/title_activity_my_maps" />
-        <activity android:name=".EditData"></activity>
+        <activity android:name=".EditData" />
+        <activity android:name=".VinActivity"></activity>
     </application>
 
 </manifest>
