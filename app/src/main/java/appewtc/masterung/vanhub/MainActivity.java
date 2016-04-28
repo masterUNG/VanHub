@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -98,6 +99,21 @@ public class MainActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, provinceStringArrayList);
 
         listView.setAdapter(stringArrayAdapter);
+
+        final String[] myListProvinceStrings = new String[provinceStringArrayList.size()];
+        for (int i=0;i<provinceStringArrayList.size();i++) {
+            myListProvinceStrings[i] = provinceStringArrayList.get(i);
+        }
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Log.d("30April", "You Choose ==>> " + myListProvinceStrings[i]);
+
+            } // onItemClick
+        });
 
 
 
