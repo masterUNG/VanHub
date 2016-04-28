@@ -20,6 +20,7 @@
     <string name="head_map">โปรดระบุตำแหน่ง</string>
     <string name="save_location">บันทึกตำแหน่ง</string>
     <string name="unknow">ยังไม่ได้กำหนด</string>
+    <string name="title_activity_vin_detail">Map</string>
 
 
 </resources>
