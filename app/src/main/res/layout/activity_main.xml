@@ -82,7 +82,8 @@
                 android:textColor="#ff5f02"
                 android:textSize="20sp"
                 android:textStyle="normal|bold"
-                android:background="@android:color/transparent" />
+                android:background="@android:color/transparent"
+                android:onClick="clickGo" />
         </LinearLayout>
 
         <TextView

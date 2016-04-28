@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.squareup.okhttp.OkHttpClient;
@@ -45,9 +46,23 @@ public class MainActivity extends AppCompatActivity {
         //Synchronize JSON to SQLite
         synJSON();
 
-
-
     }   // Main Method
+
+    public void clickGo(View view) {
+
+        EditText editText = (EditText) findViewById(R.id.editText5);
+        String strSearch = editText.getText().toString().trim();
+
+        if (strSearch.equals("")) {
+            MyAlertDialog myAlertDialog = new MyAlertDialog();
+            myAlertDialog.myDialog(this, R.drawable.icon_myaccount, "Have Space",
+                    "Please Fill All Blank");
+        } else {
+
+        }
+
+
+    }   // clickGo
 
     private void createListProvince() {
 
