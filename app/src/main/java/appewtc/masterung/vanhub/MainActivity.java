@@ -1,12 +1,15 @@
 package appewtc.masterung.vanhub;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -14,6 +17,8 @@ import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +44,64 @@ public class MainActivity extends AppCompatActivity {
         //Synchronize JSON to SQLite
         synJSON();
 
+
+
     }   // Main Method
+
+    private void createListProvince() {
+
+        //Read All Province from SQLit to Array
+
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                MODE_PRIVATE, null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE", null);
+        cursor.moveToFirst();
+        String[] allProvinceStrings = new String[cursor.getCount()];
+
+        Log.d("29April", "Cursor Count ==> " + cursor.getCount());
+
+        for (int i=0;i<cursor.getCount();i++) {
+
+            allProvinceStrings[i] = cursor.getString(cursor.getColumnIndex(MyManage.column_Stop));
+            cursor.moveToNext();
+
+            Log.d("29April", "String Province ==> " + allProvinceStrings[i]);
+
+        }   // for
+        cursor.close();
+
+        // ตัด Array ซ้ำ
+        ArrayList<String> provinceStringArrayList = new ArrayList<String>();
+        for (int i=0;i<allProvinceStrings.length;i++) {
+
+            provinceStringArrayList.add(allProvinceStrings[i]);
+
+        }   // for
+
+        Log.d("29April", "All Province ==> " + provinceStringArrayList);
+
+        Object[] objects = provinceStringArrayList.toArray();
+        for (Object o : objects) {
+
+            if (provinceStringArrayList.indexOf(o) != provinceStringArrayList.lastIndexOf(o) ) {
+
+                provinceStringArrayList.remove(provinceStringArrayList.lastIndexOf(o));
+
+            } // if
+
+        } //for
+
+        Log.d("29April", "Sep Province ==> " + provinceStringArrayList);
+
+        ListView listView = (ListView) findViewById(R.id.listView);
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, provinceStringArrayList);
+
+        listView.setAdapter(stringArrayAdapter);
+
+
+
+    }   // createListProvince
 
     //Create Inner Class
     public class ConnectedJSON extends AsyncTask<Void, Void, String> {
@@ -92,6 +154,8 @@ public class MainActivity extends AppCompatActivity {
                             strTimeEnd, strNews);
 
                 }   // for
+
+                createListProvince();
 
             } catch (Exception e) {
                 e.printStackTrace();
