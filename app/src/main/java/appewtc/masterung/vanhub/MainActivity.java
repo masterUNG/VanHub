@@ -12,6 +12,9 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity {
 
     //Explicit
@@ -63,6 +66,36 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(s);
 
             Log.d("28April", "JSON ===>>> " + s);
+
+            try {
+
+                JSONArray jsonArray = new JSONArray(s);
+                for (int i=0;i<jsonArray.length();i++) {
+
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    String strName = jsonObject.getString(MyManage.column_Name);
+                    String strUser = jsonObject.getString(MyManage.column_User);
+                    String strPassword = jsonObject.getString(MyManage.column_Password);
+                    String strEmail = jsonObject.getString(MyManage.column_Email);
+                    String strPhone = jsonObject.getString(MyManage.column_Phone);
+                    String strLat = jsonObject.getString(MyManage.column_Lat);
+                    String strLng = jsonObject.getString(MyManage.column_Lng);
+                    String strStop = jsonObject.getString(MyManage.column_Stop);
+                    String strPrice = jsonObject.getString(MyManage.column_Price);
+                    String strTimeStart = jsonObject.getString(MyManage.column_timeStart);
+                    String strTimeEnd = jsonObject.getString(MyManage.column_timeEnd);
+                    String strNews = jsonObject.getString(MyManage.column_News);
+
+                    myManage.addUser(strName, strUser, strPassword, strEmail,
+                            strPhone, strLat, strLng, strStop, strPrice, strTimeStart,
+                            strTimeEnd, strNews);
+
+                }   // for
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }   // onPost
     }   // Connected Class
